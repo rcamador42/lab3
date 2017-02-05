@@ -4,9 +4,74 @@ using CSC2110::ListArrayIterator;
 #include <iostream>
 using namespace std;
 
+// CONSTRUCTOR
+Password::Password()
+{
+   //DEFINE all_words & viable_words
+   //dynamicly defined ListArray variable 
+   all_words = new ListArray<String>();
+   viable_words = new ListArray<String>(); // ALL T's IN ListArray = String
+}
 
+// DESTRUCTOR
+Password::~Password()
+{
+   delete all_words;
+   delete viable_words;
+}
 
+//ADD A WORD TO THE LIST OF POSSIBLE PASSWORDS
+void Password::addWord(String* word)
+{
+   all_words->add(word);
+   viable_words->add(word);
+}
 
+// INDEX OF GUESSED WORD IN THE LIST
+void Password::guess(int try_password, int num_matches)
+{
+   int matches = 0;
+   String* password = all_words->get(try_password);
+   String* temp;
+
+   for(int i = 1; i <= all_words->size(); i++)
+   {
+      temp = viable_words->get(i);
+      for(int j = 0l j < password->length(); j++)
+      {
+         if(password->chatAt(j) == temp->charAt(j))
+          matches++; 
+      }
+      
+      if(matches != num_matches)
+      viable_words->remove(i);
+   } 
+}
+
+// RETURNS THE NUMBER OF POSSIBLE PASSWORDS REMAINING
+int getNumberOfPasswordsLeft()
+{
+   return viable_words->size(); //???????????????????????????
+}
+
+// DISPLAY THE CURRENT LIST OF POSSIBLE PASSWORDS
+void displayViableWords()
+{
+   int i=0;
+   int sz = viable_words->size();
+
+   for(int x = 1; x <= sz; x++)
+   {
+       viable_word->get(x)->displayString(); // CHECK!!!!!!!!!!!!!!!!!!!
+   }
+
+}
+
+// GET A WORD FROM THE ORIGINAL LIST OF ALL PASSWORDS, 1-BASED
+String* getOriginalWord(int index)
+{
+   all_words->get(index);
+}
 
 
 
